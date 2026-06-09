@@ -188,6 +188,11 @@
       overflow-wrap: anywhere;
     }
 
+    .email-output {
+      min-height: 260px;
+      background-color: #ffffff;
+    }
+
     .print-textarea-content {
       display: none;
       width: 100%;
@@ -229,13 +234,35 @@
       display: block;
     }
 
+    .email-section {
+      border: 1px solid #c9d2dc;
+      background-color: #f8fafc;
+      padding: 12px;
+      margin-top: 28px;
+      margin-bottom: 20px;
+    }
+
+    .email-options label {
+      display: inline-block;
+      margin-right: 18px;
+      font-weight: bold;
+    }
+
+    .email-actions {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
+
     .action-bar {
       text-align: center;
       margin-top: 28px;
     }
 
     .print-button,
-    .clear-button {
+    .clear-button,
+    .email-button,
+    .copy-button,
+    .mailto-button {
       color: #ffffff;
       padding: 10px 18px;
       border-radius: 6px;
@@ -244,13 +271,21 @@
       cursor: pointer;
       border: none;
       margin: 4px;
+      text-decoration: none;
+      display: inline-block;
     }
 
-    .print-button {
+    .print-button,
+    .email-button,
+    .copy-button,
+    .mailto-button {
       background-color: #1f4e79;
     }
 
-    .print-button:hover {
+    .print-button:hover,
+    .email-button:hover,
+    .copy-button:hover,
+    .mailto-button:hover {
       background-color: #163a5b;
     }
 
@@ -287,7 +322,8 @@
         overflow-wrap: anywhere !important;
       }
 
-      .action-bar {
+      .action-bar,
+      .email-actions {
         display: none !important;
       }
 
@@ -342,7 +378,8 @@
         max-width: 100%;
       }
 
-      .attendance-options label {
+      .attendance-options label,
+      .email-options label {
         display: block;
         margin-bottom: 8px;
       }
@@ -723,7 +760,7 @@
     </p>
 
     <div style="margin-bottom: 24px">
-      <textarea id="recommendationNotes" class="field-textarea" aria-label="Recommendation notes"></textarea>
+      <textarea id="recommendationNotes" class="field-textarea" aria-label="Recommendation notes" placeholder="Overall recommendation notes / reason"></textarea>
     </div>
 
     <h2>5. Red Flags, Candidate Questions, and Closing</h2>
@@ -775,6 +812,53 @@
     </div>
   </div>
 
+  <div class="email-section">
+    <h2 style="margin-top: 0">6. Email Recommendation Template</h2>
+
+    <p class="intro-text">
+      Select whether you recommend or do not recommend the candidate, then generate the email template.
+    </p>
+
+    <div class="email-options">
+      <label>
+        <input class="inline-check" type="radio" name="email-recommendation" value="do">
+        Do Recommend
+      </label>
+      <label>
+        <input class="inline-check" type="radio" name="email-recommendation" value="do-not">
+        Do Not Recommend
+      </label>
+    </div>
+
+    <h3>Email Reason / Notes</h3>
+    <div style="margin-bottom: 12px">
+      <textarea id="emailReason" class="field-textarea" aria-label="Email reason or notes" placeholder="Reason for recommendation or non-recommendation"></textarea>
+    </div>
+
+    <table>
+      <tr>
+        <td class="bg-light" style="width: 25%">To</td>
+        <td>
+          <input id="emailTo" class="field-input" type="text" readonly aria-label="Email recipients">
+        </td>
+      </tr>
+      <tr>
+        <td class="bg-light">Subject</td>
+        <td>
+          <input id="emailSubject" class="field-input" type="text" readonly aria-label="Email subject">
+        </td>
+      </tr>
+    </table>
+
+    <div class="email-actions">
+      <button id="generateEmailButton" class="email-button" type="button">Generate Email Template</button>
+      <button id="copyEmailButton" class="copy-button" type="button">Copy Email Template</button>
+      <a id="mailtoButton" class="mailto-button" href="#" target="_blank" rel="noopener">Open Email Draft</a>
+    </div>
+
+    <textarea id="emailTemplateOutput" class="field-textarea email-output" aria-label="Generated email template" readonly></textarea>
+  </div>
+
   <div class="action-bar">
     <button class="print-button" type="button">Print to PDF</button>
     <button class="clear-button" type="button">Clear Screen</button>
@@ -786,10 +870,15 @@
     document.addEventListener('DOMContentLoaded', function () {
       const printButton = document.querySelector('.print-button');
       const clearButton = document.querySelector('.clear-button');
+      const generateEmailButton = document.getElementById('generateEmailButton');
+      const copyEmailButton = document.getElementById('copyEmailButton');
+      const mailtoButton = document.getElementById('mailtoButton');
+
       const scoreInputs = Array.from(document.querySelectorAll('.question-score'));
       const textareas = Array.from(document.querySelectorAll('textarea.field-textarea'));
       const recommendationInputs = Array.from(document.querySelectorAll('input[name="overall-recommendation"]'));
       const attendanceInputs = Array.from(document.querySelectorAll('input[name="attendance-status"]'));
+      const emailRecommendationInputs = Array.from(document.querySelectorAll('input[name="email-recommendation"]'));
 
       const candidateName = document.getElementById('candidateName');
       const customerSubtotal = document.getElementById('customerSubtotal');
@@ -803,9 +892,29 @@
       const notMovingForwardNote = document.getElementById('notMovingForwardNote');
       const interviewFormSections = document.getElementById('interviewFormSections');
       const closingNotes = document.getElementById('closingNotes');
+      const recommendationNotes = document.getElementById('recommendationNotes');
+      const emailReason = document.getElementById('emailReason');
+      const emailTo = document.getElementById('emailTo');
+      const emailSubject = document.getElementById('emailSubject');
+      const emailTemplateOutput = document.getElementById('emailTemplateOutput');
 
-      const noShowClosingText = 'Candidate was 5 or more minutes late to their interview and marked as a No Call No Show';
+      const emailRecipients = [
+        'cheryl.garrison@titantechnologies.com',
+        'Jacqueline.Tadlock@titantechnologies.com',
+        'Katie.Bosek@titantechnologies.com',
+        'Brent.Moyer@titantechnologies.com',
+        'donna.reynolds@titantechnologies.com',
+        'tara.durham@titantechnologies.com',
+        'Naason.Valencia@titantechnologies.com',
+        'Kelly.Romero@titantechnologies.com',
+        'Sherry.Tamez@titantechnologies.com',
+        'shanise.mccray@titantechnologies.com'
+      ];
+
+      const noShowClosingText = 'Candidate was marked as a no show. Interview details were retained for recordkeeping.';
       const lateClosingTextTemplate = '{candidate} was 5 or more minutes late to their interview.';
+
+      emailTo.value = emailRecipients.join('; ');
 
       function createMirror(textarea) {
         const mirror = document.createElement('div');
@@ -842,6 +951,33 @@
       function getAttendanceStatus() {
         const selected = document.querySelector('input[name="attendance-status"]:checked');
         return selected ? selected.value : '';
+      }
+
+      function getEmailRecommendation() {
+        const selected = document.querySelector('input[name="email-recommendation"]:checked');
+        return selected ? selected.value : '';
+      }
+
+      function getOverallRecommendationLabel() {
+        const selected = document.querySelector('input[name="overall-recommendation"]:checked');
+
+        if (!selected) {
+          return '';
+        }
+
+        if (selected.value === 'strong-hire') {
+          return 'Strong Hire';
+        }
+
+        if (selected.value === 'move-forward') {
+          return 'Move Forward';
+        }
+
+        if (selected.value === 'do-not-move-forward') {
+          return 'Do Not Move Forward';
+        }
+
+        return '';
       }
 
       function clampScore(input) {
@@ -972,6 +1108,69 @@
         }
       }
 
+      function buildEmailTemplate() {
+        const selectedEmailRecommendation = getEmailRecommendation();
+        const name = candidateName.value.trim() || '[Candidate Name]';
+        const reasonFromEmailField = emailReason.value.trim();
+        const reasonFromRecommendationNotes = recommendationNotes.value.trim();
+        const reasonFromOverallRecommendation = getOverallRecommendationLabel();
+        const finalReason = reasonFromEmailField || reasonFromRecommendationNotes || reasonFromOverallRecommendation || '[Reason]';
+
+        const subject = 'Hiring Recommendation – ' + name;
+        let body = '';
+
+        if (selectedEmailRecommendation === 'do') {
+          body =
+            'Good Day, Everyone,\n\n' +
+            'I do recommend extending an offer to the following candidate:\n\n' +
+            'Name: ' + name + '\n' +
+            'Job Title: Help Desk Coordinator II\n' +
+            'Employment Type: Temporary\n' +
+            'Hours: Full-Time\n' +
+            'Projected Start Date: [Start Date] (subject to change)\n' +
+            'Hourly Rate: $15.00/hour\n' +
+            'Supervisor: [Supervisor Name] (rotating assignment)\n\n' +
+            'Please let me know if you have any questions.';
+        } else if (selectedEmailRecommendation === 'do-not') {
+          body =
+            'Good Day, Everyone,\n\n' +
+            'I do not recommend extending an offer to the following candidate:\n\n' +
+            'Name: ' + name + '\n' +
+            'Reason: ' + finalReason;
+        } else {
+          body = 'Please select Do Recommend or Do Not Recommend before generating the email template.';
+        }
+
+        emailSubject.value = subject;
+        emailTemplateOutput.value = body;
+        emailTemplateOutput.dispatchEvent(new Event('input'));
+
+        const mailtoHref =
+          'mailto:' + encodeURIComponent(emailRecipients.join(';')) +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+
+        mailtoButton.href = mailtoHref;
+
+        syncAllTextareas();
+      }
+
+      function copyEmailTemplate() {
+        const textToCopy =
+          'To: ' + emailRecipients.join('; ') + '\n' +
+          'Subject: ' + emailSubject.value + '\n\n' +
+          emailTemplateOutput.value;
+
+        navigator.clipboard.writeText(textToCopy).then(function () {
+          copyEmailButton.textContent = 'Copied!';
+          setTimeout(function () {
+            copyEmailButton.textContent = 'Copy Email Template';
+          }, 1500);
+        }).catch(function () {
+          alert('Unable to copy automatically. Please highlight and copy the email template manually.');
+        });
+      }
+
       function clearForm() {
         const confirmClear = confirm('Clear the entire form? This cannot be undone.');
         if (!confirmClear) return;
@@ -979,6 +1178,8 @@
         document.querySelectorAll('input').forEach(function (input) {
           if (input.type === 'radio' || input.type === 'checkbox') {
             input.checked = false;
+          } else if (input.readOnly) {
+            input.value = '';
           } else {
             input.value = '';
           }
@@ -990,6 +1191,8 @@
         });
 
         interviewFormSections.style.display = 'block';
+        emailTo.value = emailRecipients.join('; ');
+        mailtoButton.href = '#';
 
         updateScores();
         updateClosingNotes();
@@ -1008,11 +1211,20 @@
         input.addEventListener('change', updateAttendanceDisplay);
       });
 
+      emailRecommendationInputs.forEach(function (input) {
+        input.addEventListener('change', buildEmailTemplate);
+      });
+
       candidateName.addEventListener('input', function () {
         if (getAttendanceStatus() === 'late') {
           updateClosingNotesForAttendance();
         }
+
+        buildEmailTemplate();
       });
+
+      emailReason.addEventListener('input', buildEmailTemplate);
+      recommendationNotes.addEventListener('input', buildEmailTemplate);
 
       window.addEventListener('beforeprint', function () {
         syncAllTextareas();
@@ -1034,8 +1246,17 @@
         clearButton.addEventListener('click', clearForm);
       }
 
+      if (generateEmailButton) {
+        generateEmailButton.addEventListener('click', buildEmailTemplate);
+      }
+
+      if (copyEmailButton) {
+        copyEmailButton.addEventListener('click', copyEmailTemplate);
+      }
+
       updateScores();
       updateClosingNotes();
+      buildEmailTemplate();
       syncAllTextareas();
     });
   </script>
