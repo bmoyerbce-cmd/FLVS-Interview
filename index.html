@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Technical Customer Support Agent Interview Form" />
   <title>Technical Customer Support Agent Interview Form</title>
 
   <style>
@@ -12,8 +13,8 @@
       padding: 32px 80px;
       box-sizing: border-box;
       font-family: Arial, Helvetica, sans-serif;
-      color: #333;
-      background: #fff;
+      color: #333333;
+      background-color: #ffffff;
       line-height: 1.5;
       font-size: 14px;
     }
@@ -23,13 +24,15 @@
       text-align: center;
       font-size: 24px;
       margin-bottom: 4px;
+      font-weight: bold;
     }
 
     .subtitle {
       text-align: center;
       font-style: italic;
-      color: #555;
+      color: #555555;
       margin-bottom: 24px;
+      font-size: 14px;
     }
 
     h2 {
@@ -39,34 +42,42 @@
       padding-bottom: 4px;
       margin-top: 28px;
       margin-bottom: 12px;
+      font-weight: bold;
     }
 
     h3 {
       font-size: 14px;
+      color: #333333;
       margin-bottom: 8px;
+      font-weight: bold;
     }
 
     table {
       width: 100%;
+      table-layout: fixed;
       border-collapse: collapse;
       margin-bottom: 16px;
       font-size: 13px;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #c9d2dc;
       padding: 8px 12px;
       vertical-align: top;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     th {
-      background: #f3f4f6;
+      background-color: #f3f4f6;
+      font-weight: bold;
       color: #1f4e79;
       text-align: left;
     }
 
     .bg-light {
-      background: #f3f4f6;
+      background-color: #f3f4f6;
       font-weight: bold;
     }
 
@@ -76,7 +87,7 @@
     }
 
     .note-title {
-      background: #d9eaf7;
+      background-color: #d9eaf7;
       color: #1f4e79;
       font-weight: bold;
       padding: 6px 12px;
@@ -85,34 +96,63 @@
     }
 
     .note-content {
-      background: #fff;
+      background-color: #ffffff;
       padding: 12px;
       font-size: 13px;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .intro-text {
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+
+    .checkbox-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 16px;
+    }
+
+    .checkbox-list li {
+      margin-bottom: 6px;
     }
 
     .question-block {
       margin-bottom: 20px;
     }
 
+    .question-block p {
+      margin-bottom: 6px;
+    }
+
     .score-table {
+      width: 100%;
+      table-layout: fixed;
       margin-bottom: 0;
+    }
+
+    .score-table td {
+      padding: 6px 12px;
     }
 
     .score-col {
       width: 80px;
       font-weight: bold;
-      background: #f8fafc;
+      background-color: #f8fafc;
     }
 
     .field-input,
     .field-textarea,
     .score-input {
       width: 100%;
+      margin: 0;
       padding: 8px 10px;
       border: 1px solid #9fb3c8;
       border-radius: 4px;
       font-family: inherit;
       font-size: 13px;
+      background: #ffffff;
       box-sizing: border-box;
     }
 
@@ -124,17 +164,25 @@
       min-height: 78px;
       resize: vertical;
       overflow: hidden;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     .print-textarea-content {
       display: none;
-      white-space: pre-wrap;
+      width: 100%;
       min-height: 78px;
       padding: 8px 10px;
-      border: 1px solid #999;
+      border: 1px solid #999999;
       border-radius: 4px;
+      font-family: inherit;
       font-size: 13px;
+      background: #ffffff;
       box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     .score-input {
@@ -145,21 +193,13 @@
     .inline-check {
       width: 16px;
       height: 16px;
+      margin: 0;
       vertical-align: middle;
     }
 
     .checkbox-cell {
       text-align: center;
       vertical-align: middle;
-    }
-
-    .checkbox-list {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .checkbox-list li {
-      margin-bottom: 6px;
     }
 
     .closing-note {
@@ -177,9 +217,10 @@
 
     .print-button,
     .clear-button {
-      color: #fff;
+      color: #ffffff;
       padding: 10px 18px;
       border-radius: 6px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
       border: none;
@@ -187,19 +228,27 @@
     }
 
     .print-button {
-      background: #1f4e79;
+      background-color: #1f4e79;
+    }
+
+    .print-button:hover {
+      background-color: #163a5b;
     }
 
     .clear-button {
-      background: #777;
+      background-color: #777777;
+    }
+
+    .clear-button:hover {
+      background-color: #555555;
     }
 
     .footer {
       margin-top: 40px;
       text-align: center;
       font-size: 11px;
-      color: #777;
-      border-top: 1px solid #eee;
+      color: #777777;
+      border-top: 1px solid #eeeeee;
       padding-top: 8px;
     }
 
@@ -207,6 +256,16 @@
       body {
         max-width: 100%;
         padding: 20px 28px;
+      }
+
+      table {
+        table-layout: fixed !important;
+      }
+
+      th,
+      td {
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
       }
 
       .action-bar {
@@ -219,8 +278,15 @@
 
       .print-textarea-content {
         display: block !important;
+        width: 100% !important;
+        min-height: 0 !important;
         height: auto !important;
         overflow: visible !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+        overflow-wrap: anywhere !important;
+        border: 1px solid #999999 !important;
+        padding: 8px 10px !important;
       }
 
       .closing-note {
@@ -235,7 +301,8 @@
 
       .field-input,
       .score-input {
-        border: 1px solid #999;
+        border: 1px solid #999999;
+        box-shadow: none;
       }
     }
 
@@ -243,33 +310,45 @@
       body {
         padding: 20px 16px;
       }
+
+      table,
+      tbody,
+      tr,
+      td,
+      th {
+        font-size: 12px;
+      }
+
+      .score-input {
+        max-width: 100%;
+      }
     }
   </style>
 </head>
 
 <body>
   <h1>Technical Customer Support Agent (Temporary)</h1>
-  <div class="subtitle">Remote Interview Form</div>
+  <div class="subtitle">Remote Interview Form | Polished Supervisor Guide | 20-Minute Screen</div>
 
   <h2>Interview Details</h2>
   <table>
     <tr>
-      <td class="bg-light">Interviewer</td>
-      <td><input class="field-input" type="text"></td>
-      <td class="bg-light">Interview Date/Time</td>
-      <td><input class="field-input" type="text"></td>
+      <td class="bg-light" style="width: 18%">Interviewer</td>
+      <td style="width: 32%"><input class="field-input" type="text" aria-label="Interviewer"></td>
+      <td class="bg-light" style="width: 18%">Interview Date/Time</td>
+      <td style="width: 32%"><input class="field-input" type="text" aria-label="Interview Date and Time"></td>
     </tr>
     <tr>
       <td class="bg-light">Candidate Name</td>
-      <td><input class="field-input" type="text"></td>
+      <td><input class="field-input" type="text" aria-label="Candidate Name"></td>
       <td class="bg-light">City/State</td>
-      <td><input class="field-input" type="text"></td>
+      <td><input class="field-input" type="text" aria-label="City and State"></td>
     </tr>
     <tr>
       <td class="bg-light">Phone</td>
-      <td><input class="field-input" type="text"></td>
+      <td><input class="field-input" type="text" aria-label="Phone"></td>
       <td class="bg-light">Email</td>
-      <td><input class="field-input" type="email"></td>
+      <td><input class="field-input" type="email" aria-label="Email"></td>
     </tr>
   </table>
 
@@ -287,113 +366,319 @@
     <div class="note-title">Use this opening summary</div>
     <div class="note-content">
       The Call Center operates 365 days a year, providing customer support for FLVS users with technical and
-      non-technical inquiries. Responsibilities include responding to phone calls, assisting customers with self-service
-      support tickets, performing basic troubleshooting, and delivering excellent customer service.
+      non-technical inquiries. Responsibilities include responding to phone calls, assisting customers with
+      self-service support tickets, performing basic troubleshooting, and delivering excellent customer service. This
+      temporary position offers flexible scheduling, with part-time and full-time opportunities ranging from 20-40
+      hours per week. Shifts are available during operating hours from Monday through Friday, 6:00 AM-8:00 PM CT, and
+      Saturday, 8:00 AM-4:30 PM CT. Employment is contingent upon successfully passing a Level 2 background check and
+      drug screening.
     </div>
   </div>
 
   <h2>1. Minimum Requirements and Knockout Check</h2>
+  <p class="intro-text">
+    Complete this section first. If a candidate cannot meet schedule flexibility, remote work setup, or required
+    screening expectations, note it here before moving deeper into the interview.
+  </p>
+
   <table>
     <tr>
       <th>Questions</th>
-      <th style="width:60px;text-align:center;">Yes</th>
-      <th style="width:60px;text-align:center;">No</th>
+      <th style="width: 60px; text-align: center">Yes</th>
+      <th style="width: 60px; text-align: center">No</th>
     </tr>
     <tr>
       <td>Are you seeking a Full Time or Part Time schedule?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req1" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req1" type="radio"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req1" aria-label="Schedule yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req1" aria-label="Schedule no"></td>
     </tr>
     <tr>
       <td>Can work flexible shifts, including weekends/holidays if needed?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req2" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req2" type="radio"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req2" aria-label="Flexible shifts yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req2" aria-label="Flexible shifts no"></td>
     </tr>
     <tr>
-      <td>Do you have reliable computer, stable internet, headset, and quiet workspace?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req3" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req3" type="radio"></td>
+      <td>Do you have a reliable computer, stable internet, headset, and a quiet workspace?</td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req3" aria-label="Equipment yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req3" aria-label="Equipment no"></td>
     </tr>
     <tr>
       <td>Are you comfortable working fully remote and using browser-based systems/tools?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req4" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req4" type="radio"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req4" aria-label="Remote systems yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req4" aria-label="Remote systems no"></td>
     </tr>
     <tr>
       <td>Is there anything that would prevent you from passing a level two background or drug screening?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req5" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req5" type="radio"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req5" aria-label="Screening yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req5" aria-label="Screening no"></td>
     </tr>
     <tr>
-      <td>In this role you will be performing about 20% technical skills and 80% customer service skills. Is that something you're comfortable with?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req6" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req6" type="radio"></td>
+      <td>
+        In this role you will be performing about 20% technical skills and 80% customer service skills. Is that
+        something you're comfortable with?
+      </td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req6" aria-label="Role mix yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req6" aria-label="Role mix no"></td>
     </tr>
     <tr>
       <td>Do you have prior experience in customer support, call center, help desk, or similar service work?</td>
-      <td class="checkbox-cell"><input class="inline-check" name="req7" type="radio"></td>
-      <td class="checkbox-cell"><input class="inline-check" name="req7" type="radio"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req7" aria-label="Prior experience yes"></td>
+      <td class="checkbox-cell"><input class="inline-check" type="radio" name="req7" aria-label="Prior experience no"></td>
     </tr>
   </table>
 
-  <p>
-    <strong>Minimum requirement outcome:</strong>
-    <label><input class="inline-check" name="minimum-outcome" type="radio"> Meets minimum requirements</label>
-    <label><input class="inline-check" name="minimum-outcome" type="radio"> Does not meet minimum requirements</label>
+  <p class="intro-text" style="font-weight: bold">
+    Minimum requirement outcome:
+    <label><input class="inline-check" type="radio" name="minimum-outcome"> Meets minimum requirements</label>
+    <label><input class="inline-check" type="radio" name="minimum-outcome"> Does not meet minimum requirements</label>
   </p>
 
   <h2>2. Customer Service Fit</h2>
-  <p><em>Score guide: 1 = vague or not relevant | 3 = acceptable and clear | 5 = strong fit</em></p>
+  <p class="intro-text">
+    Use these questions to evaluate communication, empathy, ownership, organization, reliability, and comfort in a
+    customer-facing environment.
+  </p>
+  <p class="intro-text" style="background-color: #f8fafc; padding: 6px 10px; border: 1px solid #e5e7eb">
+    <em>Score guide: 1 = vague or not relevant | 3 = acceptable and clear | 5 = strong fit with relevant support</em>
+  </p>
 
-  <div id="questions"></div>
+  <div class="question-block">
+    <p>
+      <strong>1. Tell me about your background and why this role interests you.</strong><br>
+      <em>Listen for:</em> clear communication, relevant service experience, professionalism, and genuine interest in
+      support work.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 1 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 1 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
 
-  <p>
-    <strong>Customer Service Subtotal (out of 30):</strong>
-    <input id="customerSubtotal" class="score-input" type="number" readonly>
+  <div class="question-block">
+    <p>
+      <strong>2. Tell me about a time you handled a frustrated or upset customer. What did you do and what was the outcome?</strong><br>
+      <em>Listen for:</em> empathy, de-escalation, calm tone, accountability, and a focus on resolution.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 2 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 2 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>3. Give an example of a time you had to explain something confusing to a customer in a simple way.</strong><br>
+      <em>Listen for:</em> clarity, patience, and the ability to adjust communication for non-technical users.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 3 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 3 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>4. This team works in a performance-driven environment. How do you respond to goals, quality expectations, or productivity metrics?</strong><br>
+      <em>Listen for:</em> coachability, accountability, consistency, and comfort being measured on performance.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 4 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 4 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>5. What would you do if you were running late, needed to miss a shift, or had a customer issue you could not resolve on your own?</strong><br>
+      <em>Listen for:</em> reliability, communication habits, sound escalation judgment, and professional ownership.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 5 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 5 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>6. Tell me about a time when you went above and beyond to help a customer. What was the situation, what actions did you take, and what was the outcome?</strong><br>
+      <em>Listen for:</em> customer-first mindset, initiative, empathy, ownership, problem-solving, and commitment to
+      creating a positive customer experience.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 6 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 6 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <p style="font-weight: bold; margin-bottom: 24px">
+    Customer Service Subtotal (out of 30):
+    <input id="customerSubtotal" class="score-input" type="number" readonly aria-label="Customer Service Subtotal">
   </p>
 
   <h2>3. Basic Technical Fit</h2>
+  <p class="intro-text">
+    Keep this section practical and basic. The goal is to confirm comfort with common user support issues, not
+    advanced IT expertise.
+  </p>
 
-  <p>
-    <strong>Technical Subtotal (out of 20):</strong>
-    <input id="technicalSubtotal" class="score-input" type="number" readonly>
+  <div class="question-block">
+    <p>
+      <strong>7. What experience do you have with Windows computers, Microsoft Office, and web browsers such as Chrome, Edge, or Firefox?</strong><br>
+      <em>Listen for:</em> hands-on familiarity with Windows navigation, browser settings, and standard business tools.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 7 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 7 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>8. A customer says their browser is not working correctly. What basic steps would you try first?</strong><br>
+      <em>Listen for:</em> basic troubleshooting such as refresh/restart, connection check, cache/cookies, trying another browser, extensions, or rebooting.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 8 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 8 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>9. If an application freezes on a Windows computer, what would you do?</strong><br>
+      <em>Listen for:</em> logical first steps such as normal close, Task Manager/end task, restart app, and restart device if needed.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 9 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 9 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="question-block">
+    <p>
+      <strong>10. Have you used a ticketing system or documented customer issues before? If yes, describe your experience.</strong><br>
+      <em>Listen for:</em> clear documentation habits, detail capture, accurate notes, and follow-up discipline.
+    </p>
+    <table class="score-table">
+      <tr>
+        <td class="score-col">Score:</td>
+        <td><input class="score-input question-score" type="number" min="0" max="5" step="1" inputmode="numeric" aria-label="Question 10 score"></td>
+      </tr>
+      <tr>
+        <td class="score-col">Notes:</td>
+        <td><textarea class="field-textarea" aria-label="Question 10 notes"></textarea></td>
+      </tr>
+    </table>
+  </div>
+
+  <p style="font-weight: bold; margin-bottom: 24px">
+    Technical Subtotal (out of 20):
+    <input id="technicalSubtotal" class="score-input" type="number" readonly aria-label="Technical Subtotal">
   </p>
 
   <h2>4. Overall Recommendation Summary</h2>
   <table>
     <tr>
-      <td class="bg-light">Customer Service Score</td>
-      <td><input id="summaryCustomerScore" class="field-input" readonly></td>
+      <td class="bg-light" style="width: 35%">Customer Service Score</td>
+      <td><input id="summaryCustomerScore" class="field-input" type="text" readonly aria-label="Customer Service Score Summary"></td>
     </tr>
     <tr>
       <td class="bg-light">Technical Score</td>
-      <td><input id="summaryTechnicalScore" class="field-input" readonly></td>
+      <td><input id="summaryTechnicalScore" class="field-input" type="text" readonly aria-label="Technical Score Summary"></td>
     </tr>
     <tr>
       <td class="bg-light">Overall Fit</td>
-      <td><input id="overallFit" class="field-input" readonly></td>
+      <td><input id="overallFit" class="field-input" type="text" readonly aria-label="Overall Fit"></td>
     </tr>
     <tr>
       <td class="bg-light">Primary Concern Area</td>
-      <td><input class="field-input"></td>
+      <td><input class="field-input" type="text" aria-label="Primary Concern Area"></td>
     </tr>
     <tr>
       <td class="bg-light">Primary Strength Area</td>
-      <td><input class="field-input"></td>
+      <td><input class="field-input" type="text" aria-label="Primary Strength Area"></td>
     </tr>
   </table>
 
-  <p>
-    <strong>Overall recommendation:</strong>
-    <label><input class="inline-check" name="overall-recommendation" type="radio" value="strong-hire"> Strong Hire</label>
-    <label><input class="inline-check" name="overall-recommendation" type="radio" value="move-forward"> Move Forward</label>
-    <label><input class="inline-check" name="overall-recommendation" type="radio" value="do-not-move-forward"> Do Not Move Forward</label>
+  <div class="note-box" style="border-color: #fde68a; background-color: #fef3c7">
+    <div class="note-title" style="background-color: #fcd34d; color: #92400e; border-bottom: 1px solid #fde68a">
+      Recommended decision lens
+    </div>
+    <div class="note-content" style="background-color: #fef3c7; color: #92400e">
+      Because this role is mostly customer-facing, strong communication, professionalism, and customer handling should
+      outweigh minor technical gaps if the candidate shows coachability and basic troubleshooting comfort.
+    </div>
+  </div>
+
+  <p style="font-weight: bold; margin-bottom: 16px">
+    Overall recommendation:
+    <label><input class="inline-check" type="radio" name="overall-recommendation" value="strong-hire"> Strong Hire</label>
+    <label><input class="inline-check" type="radio" name="overall-recommendation" value="move-forward"> Move Forward</label>
+    <label><input class="inline-check" type="radio" name="overall-recommendation" value="do-not-move-forward"> Do Not Move Forward</label>
   </p>
 
-  <textarea class="field-textarea" placeholder="Recommendation notes"></textarea>
+  <div style="margin-bottom: 12px">
+    <textarea class="field-textarea" aria-label="Recommendation notes line 1"></textarea>
+  </div>
+  <div style="margin-bottom: 24px">
+    <textarea class="field-textarea" aria-label="Recommendation notes line 2"></textarea>
+  </div>
 
   <h2>5. Red Flags, Candidate Questions, and Closing</h2>
-
   <ul class="checkbox-list">
     <li><label><input class="inline-check" type="checkbox"> Poor communication or difficult to follow</label></li>
     <li><label><input class="inline-check" type="checkbox"> Weak customer service examples or low empathy</label></li>
@@ -405,31 +690,37 @@
     <li><label><input class="inline-check" type="checkbox"> Cannot meet screening/background requirements</label></li>
   </ul>
 
-  <h3>Candidate questions</h3>
-  <textarea class="field-textarea"></textarea>
+  <h3 style="margin-top: 24px">Candidate questions</h3>
+  <div style="margin-bottom: 24px">
+    <textarea class="field-textarea" aria-label="Candidate questions"></textarea>
+  </div>
 
   <h3>Closing notes / next steps shared</h3>
-  <textarea class="field-textarea"></textarea>
+  <div style="margin-bottom: 32px">
+    <textarea class="field-textarea" aria-label="Closing notes and next steps"></textarea>
+  </div>
 
   <div class="note-box closing-note" id="movingForwardNote">
     <div class="note-title">For Candidates Moving Forward</div>
     <div class="note-content">
       Thank you for taking the time to meet with us today. We appreciate your interest in joining our team and enjoyed
       learning more about your background and experience. Based on our conversation, we believe you are a strong
-      candidate for this position and would like to move forward in the hiring process. Over the next few days, you can
-      expect to receive emails from our Human Resources team with instructions regarding pre-employment requirements and
-      next steps. Thank you again for your time, and we look forward to speaking with you soon.
+      candidate for this position and would like to move forward in the hiring process. Over the next few days, you
+      can expect to receive emails from our Human Resources team with instructions regarding pre-employment
+      requirements and next steps. Thank you again for your time, and we look forward to speaking with you soon.
     </div>
   </div>
 
   <div class="note-box closing-note" id="notMovingForwardNote">
     <div class="note-title">For Candidates Not Moving Forward</div>
     <div class="note-content">
-      Thank you for taking the time to interview with us today and for your interest in joining our team. We appreciate
-      the opportunity to learn more about your experience and qualifications. After careful consideration, we have
-      decided to move forward with other candidates whose experience and skills more closely align with our current
-      needs. We sincerely appreciate your interest in our organization and encourage you to apply for future
-      opportunities that may be a better fit. We wish you the very best in your job search and future endeavors.
+      Thank you for taking the time to interview with us today and for your interest in joining our team. We
+      appreciate the opportunity to learn more about your experience and qualifications. After careful consideration,
+      we have decided to move forward with other candidates whose experience and skills more closely align with our
+      current needs. This decision was not easy, as we received applications from many qualified individuals. We
+      sincerely appreciate your interest in our organization and encourage you to apply for future opportunities that
+      may be a better fit. We wish you the very best in your job search and future endeavors. Thank you again for your
+      time and interest in our team.
     </div>
   </div>
 
@@ -442,55 +733,29 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const questions = [
-        'Tell me about your background and why this role interests you.',
-        'Tell me about a time you handled a frustrated or upset customer. What did you do and what was the outcome?',
-        'Give an example of a time you had to explain something confusing to a customer in a simple way.',
-        'This team works in a performance-driven environment. How do you respond to goals, quality expectations, or productivity metrics?',
-        'What would you do if you were running late, needed to miss a shift, or had a customer issue you could not resolve on your own?',
-        'Tell me about a time when you went above and beyond to help a customer.',
-        'What experience do you have with Windows computers, Microsoft Office, and web browsers?',
-        'A customer says their browser is not working correctly. What basic steps would you try first?',
-        'If an application freezes on a Windows computer, what would you do?',
-        'Have you used a ticketing system or documented customer issues before? If yes, describe your experience.'
-      ];
-
-      const questionsContainer = document.getElementById('questions');
-
-      questions.forEach(function (question, index) {
-        const div = document.createElement('div');
-        div.className = 'question-block';
-        div.innerHTML = `
-          <p><strong>${index + 1}. ${question}</strong></p>
-          <table class="score-table">
-            <tr>
-              <td class="score-col">Score:</td>
-              <td><input class="score-input question-score" type="number" min="0" max="5" step="1"></td>
-            </tr>
-            <tr>
-              <td class="score-col">Notes:</td>
-              <td><textarea class="field-textarea"></textarea></td>
-            </tr>
-          </table>
-        `;
-        questionsContainer.appendChild(div);
-      });
-
+      const printButton = document.querySelector('.print-button');
+      const clearButton = document.querySelector('.clear-button');
       const scoreInputs = Array.from(document.querySelectorAll('.question-score'));
       const textareas = Array.from(document.querySelectorAll('textarea.field-textarea'));
       const recommendationInputs = Array.from(document.querySelectorAll('input[name="overall-recommendation"]'));
-      const printButton = document.querySelector('.print-button');
-      const clearButton = document.querySelector('.clear-button');
 
-      function createPrintMirror(textarea) {
+      const customerSubtotal = document.getElementById('customerSubtotal');
+      const technicalSubtotal = document.getElementById('technicalSubtotal');
+      const summaryCustomerScore = document.getElementById('summaryCustomerScore');
+      const summaryTechnicalScore = document.getElementById('summaryTechnicalScore');
+      const overallFit = document.getElementById('overallFit');
+      const movingForwardNote = document.getElementById('movingForwardNote');
+      const notMovingForwardNote = document.getElementById('notMovingForwardNote');
+
+      function createMirror(textarea) {
         const mirror = document.createElement('div');
         mirror.className = 'print-textarea-content';
-        textarea.insertAdjacentElement('afterend', mirror);
+        textarea.parentNode.insertBefore(mirror, textarea.nextSibling);
         return mirror;
       }
 
       textareas.forEach(function (textarea) {
-        const mirror = createPrintMirror(textarea);
+        const mirror = createMirror(textarea);
 
         function syncTextarea() {
           textarea.style.height = 'auto';
@@ -504,38 +769,64 @@
 
       function syncAllTextareas() {
         textareas.forEach(function (textarea) {
-          textarea.dispatchEvent(new Event('input'));
+          textarea.style.height = 'auto';
+          textarea.style.height = textarea.scrollHeight + 'px';
+
+          const mirror = textarea.parentNode.querySelector('.print-textarea-content');
+          if (mirror) {
+            mirror.textContent = textarea.value || '';
+          }
         });
       }
 
       function clampScore(input) {
         const value = Number(input.value);
-        if (input.value === '') return 0;
-        if (Number.isNaN(value)) return 0;
-        if (value < 0) input.value = 0;
-        if (value > 5) input.value = 5;
+
+        if (input.value === '') {
+          return 0;
+        }
+
+        if (Number.isNaN(value)) {
+          input.value = '';
+          return 0;
+        }
+
+        if (value < 0) {
+          input.value = 0;
+        }
+
+        if (value > 5) {
+          input.value = 5;
+        }
+
         return Number(input.value);
       }
 
       function updateScores() {
         const scores = scoreInputs.map(clampScore);
-        const customer = scores.slice(0, 6).reduce((sum, score) => sum + score, 0);
-        const technical = scores.slice(6, 10).reduce((sum, score) => sum + score, 0);
+        const customer = scores.slice(0, 6).reduce(function (sum, score) {
+          return sum + score;
+        }, 0);
+
+        const technical = scores.slice(6, 10).reduce(function (sum, score) {
+          return sum + score;
+        }, 0);
+
         const total = customer + technical;
 
-        document.getElementById('customerSubtotal').value = customer;
-        document.getElementById('technicalSubtotal').value = technical;
-        document.getElementById('summaryCustomerScore').value = customer + ' / 30';
-        document.getElementById('summaryTechnicalScore').value = technical + ' / 20';
+        customerSubtotal.value = customer;
+        technicalSubtotal.value = technical;
+        summaryCustomerScore.value = customer + ' / 30';
+        summaryTechnicalScore.value = technical + ' / 20';
 
         if (total >= 42) {
-          document.getElementById('overallFit').value = 'Strong fit';
+          overallFit.value = 'Strong fit';
         } else if (total >= 32) {
-          document.getElementById('overallFit').value = 'Potential fit';
+          overallFit.value = 'Potential fit';
         } else if (total > 0) {
-          document.getElementById('overallFit').value = 'Not recommended';
+          overallFit.value = 'Not recommended';
         } else {
-          document.getElementById('overallFit').value = '';
+          overallFit.value = '';
         }
       }
 
@@ -543,37 +834,22 @@
         const selected = document.querySelector('input[name="overall-recommendation"]:checked');
         const selectedValue = selected ? selected.value : '';
 
-        document.getElementById('movingForwardNote').classList.toggle(
-          'active',
-          selectedValue === 'strong-hire' || selectedValue === 'move-forward'
-        );
+        if (movingForwardNote) {
+          movingForwardNote.classList.toggle(
+            'active',
+            selectedValue === 'strong-hire' || selectedValue === 'move-forward'
+          );
+        }
 
-        document.getElementById('notMovingForwardNote').classList.toggle(
-          'active',
-          selectedValue === 'do-not-move-forward'
-        );
+        if (notMovingForwardNote) {
+          notMovingForwardNote.classList.toggle(
+            'active',
+            selectedValue === 'do-not-move-forward'
+          );
+        }
       }
 
-      scoreInputs.forEach(function (input) {
-        input.addEventListener('input', updateScores);
-      });
-
-      recommendationInputs.forEach(function (input) {
-        input.addEventListener('change', updateClosingNotes);
-      });
-
-      window.addEventListener('beforeprint', function () {
-        syncAllTextareas();
-        updateClosingNotes();
-      });
-
-      printButton.addEventListener('click', function () {
-        syncAllTextareas();
-        updateClosingNotes();
-        window.print();
-      });
-
-      clearButton.addEventListener('click', function () {
+      function clearForm() {
         const confirmClear = confirm('Clear the entire form? This cannot be undone.');
         if (!confirmClear) return;
 
@@ -593,7 +869,35 @@
         updateScores();
         updateClosingNotes();
         syncAllTextareas();
+      }
+
+      scoreInputs.forEach(function (input) {
+        input.addEventListener('input', updateScores);
       });
+
+      recommendationInputs.forEach(function (input) {
+        input.addEventListener('change', updateClosingNotes);
+      });
+
+      window.addEventListener('beforeprint', function () {
+        syncAllTextareas();
+        updateClosingNotes();
+      });
+
+      if (printButton) {
+        printButton.addEventListener('click', function () {
+          syncAllTextareas();
+          updateClosingNotes();
+
+          setTimeout(function () {
+            window.print();
+          }, 100);
+        });
+      }
+
+      if (clearButton) {
+        clearButton.addEventListener('click', clearForm);
+      }
 
       updateScores();
       updateClosingNotes();
