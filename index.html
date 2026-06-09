@@ -891,6 +891,7 @@
       const attendanceInputs = Array.from(document.querySelectorAll('input[name="attendance-status"]'));
       const emailRecommendationInputs = Array.from(document.querySelectorAll('input[name="email-recommendation"]'));
 
+      const interviewerName = document.getElementById('interviewerName');
       const candidateName = document.getElementById('candidateName');
       const customerSubtotal = document.getElementById('customerSubtotal');
       const technicalSubtotal = document.getElementById('technicalSubtotal');
@@ -1122,6 +1123,7 @@
       function buildEmailTemplate() {
         const selectedEmailRecommendation = getEmailRecommendation();
         const name = candidateName.value.trim() || '[Candidate Name]';
+        const interviewer = interviewerName.value.trim() || '[Interviewer]';
         const reasonFromEmailField = emailReason.value.trim();
         const reasonFromRecommendationNotes = recommendationNotes.value.trim();
         const reasonFromOverallRecommendation = getOverallRecommendationLabel();
@@ -1141,13 +1143,15 @@
             'Projected Start Date: [Start Date] (subject to change)\n' +
             'Hourly Rate: $15.00/hour\n' +
             'Supervisor: [Supervisor Name] (rotating assignment)\n\n' +
-            'Please let me know if you have any questions.';
+            'Please let me know if you have any questions.\n\n' +
+            interviewer;
         } else if (selectedEmailRecommendation === 'do-not') {
           body =
             'Good Day, Everyone,\n\n' +
             'I do not recommend extending an offer to the following candidate:\n\n' +
             'Name: ' + name + '\n' +
-            'Reason: ' + finalReason;
+            'Reason: ' + finalReason + '\n\n' +
+            interviewer;
         } else {
           body = 'Please select Do Recommend or Do Not Recommend before generating the email template.';
         }
@@ -1234,6 +1238,7 @@
         buildEmailTemplate();
       });
 
+      interviewerName.addEventListener('input', buildEmailTemplate);
       emailReason.addEventListener('input', buildEmailTemplate);
       recommendationNotes.addEventListener('input', buildEmailTemplate);
 
