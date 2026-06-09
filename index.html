@@ -53,8 +53,7 @@
       font-size: 13px;
     }
 
-    th,
-    td {
+    th, td {
       border: 1px solid #c9d2dc;
       padding: 8px 12px;
       vertical-align: top;
@@ -127,6 +126,17 @@
       overflow: hidden;
     }
 
+    .print-textarea-content {
+      display: none;
+      white-space: pre-wrap;
+      min-height: 78px;
+      padding: 8px 10px;
+      border: 1px solid #999;
+      border-radius: 4px;
+      font-size: 13px;
+      box-sizing: border-box;
+    }
+
     .score-input {
       max-width: 90px;
       text-align: center;
@@ -165,14 +175,23 @@
       margin-top: 28px;
     }
 
-    .print-button {
-      background: #1f4e79;
-      border: 1px solid #1f4e79;
+    .print-button,
+    .clear-button {
       color: #fff;
       padding: 10px 18px;
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
+      border: none;
+      margin: 4px;
+    }
+
+    .print-button {
+      background: #1f4e79;
+    }
+
+    .clear-button {
+      background: #777;
     }
 
     .footer {
@@ -191,15 +210,17 @@
       }
 
       .action-bar {
-        display: none;
+        display: none !important;
       }
 
       textarea.field-textarea {
+        display: none !important;
+      }
+
+      .print-textarea-content {
+        display: block !important;
         height: auto !important;
-        min-height: 0;
-        overflow: visible;
-        resize: none;
-        white-space: pre-wrap;
+        overflow: visible !important;
       }
 
       .closing-note {
@@ -213,7 +234,6 @@
       }
 
       .field-input,
-      .field-textarea,
       .score-input {
         border: 1px solid #999;
       }
@@ -268,8 +288,7 @@
     <div class="note-content">
       The Call Center operates 365 days a year, providing customer support for FLVS users with technical and
       non-technical inquiries. Responsibilities include responding to phone calls, assisting customers with self-service
-      support tickets, performing basic troubleshooting, and delivering excellent customer service. This temporary
-      position offers flexible scheduling, with part-time and full-time opportunities ranging from 20-40 hours per week.
+      support tickets, performing basic troubleshooting, and delivering excellent customer service.
     </div>
   </div>
 
@@ -291,7 +310,7 @@
       <td class="checkbox-cell"><input class="inline-check" name="req2" type="radio"></td>
     </tr>
     <tr>
-      <td>Do you have a reliable computer, stable internet, headset, and quiet workspace?</td>
+      <td>Do you have reliable computer, stable internet, headset, and quiet workspace?</td>
       <td class="checkbox-cell"><input class="inline-check" name="req3" type="radio"></td>
       <td class="checkbox-cell"><input class="inline-check" name="req3" type="radio"></td>
     </tr>
@@ -317,7 +336,8 @@
     </tr>
   </table>
 
-  <p><strong>Minimum requirement outcome:</strong>
+  <p>
+    <strong>Minimum requirement outcome:</strong>
     <label><input class="inline-check" name="minimum-outcome" type="radio"> Meets minimum requirements</label>
     <label><input class="inline-check" name="minimum-outcome" type="radio"> Does not meet minimum requirements</label>
   </p>
@@ -327,12 +347,15 @@
 
   <div id="questions"></div>
 
-  <p><strong>Customer Service Subtotal (out of 30):</strong>
+  <p>
+    <strong>Customer Service Subtotal (out of 30):</strong>
     <input id="customerSubtotal" class="score-input" type="number" readonly>
   </p>
 
   <h2>3. Basic Technical Fit</h2>
-  <p><strong>Technical Subtotal (out of 20):</strong>
+
+  <p>
+    <strong>Technical Subtotal (out of 20):</strong>
     <input id="technicalSubtotal" class="score-input" type="number" readonly>
   </p>
 
@@ -360,7 +383,8 @@
     </tr>
   </table>
 
-  <p><strong>Overall recommendation:</strong>
+  <p>
+    <strong>Overall recommendation:</strong>
     <label><input class="inline-check" name="overall-recommendation" type="radio" value="strong-hire"> Strong Hire</label>
     <label><input class="inline-check" name="overall-recommendation" type="radio" value="move-forward"> Move Forward</label>
     <label><input class="inline-check" name="overall-recommendation" type="radio" value="do-not-move-forward"> Do Not Move Forward</label>
@@ -369,6 +393,7 @@
   <textarea class="field-textarea" placeholder="Recommendation notes"></textarea>
 
   <h2>5. Red Flags, Candidate Questions, and Closing</h2>
+
   <ul class="checkbox-list">
     <li><label><input class="inline-check" type="checkbox"> Poor communication or difficult to follow</label></li>
     <li><label><input class="inline-check" type="checkbox"> Weak customer service examples or low empathy</label></li>
@@ -410,6 +435,7 @@
 
   <div class="action-bar">
     <button class="print-button" type="button">Print to PDF</button>
+    <button class="clear-button" type="button">Clear Screen</button>
   </div>
 
   <div class="footer">Technical Customer Support Agent Interview Form</div>
@@ -454,6 +480,33 @@
       const textareas = Array.from(document.querySelectorAll('textarea.field-textarea'));
       const recommendationInputs = Array.from(document.querySelectorAll('input[name="overall-recommendation"]'));
       const printButton = document.querySelector('.print-button');
+      const clearButton = document.querySelector('.clear-button');
+
+      function createPrintMirror(textarea) {
+        const mirror = document.createElement('div');
+        mirror.className = 'print-textarea-content';
+        textarea.insertAdjacentElement('afterend', mirror);
+        return mirror;
+      }
+
+      textareas.forEach(function (textarea) {
+        const mirror = createPrintMirror(textarea);
+
+        function syncTextarea() {
+          textarea.style.height = 'auto';
+          textarea.style.height = textarea.scrollHeight + 'px';
+          mirror.textContent = textarea.value || '';
+        }
+
+        textarea.addEventListener('input', syncTextarea);
+        syncTextarea();
+      });
+
+      function syncAllTextareas() {
+        textareas.forEach(function (textarea) {
+          textarea.dispatchEvent(new Event('input'));
+        });
+      }
 
       function clampScore(input) {
         const value = Number(input.value);
@@ -486,15 +539,6 @@
         }
       }
 
-      function autoFitTextarea(textarea) {
-        textarea.style.height = 'auto';
-        textarea.style.height = textarea.scrollHeight + 'px';
-      }
-
-      function autoFitAllTextareas() {
-        textareas.forEach(autoFitTextarea);
-      }
-
       function updateClosingNotes() {
         const selected = document.querySelector('input[name="overall-recommendation"]:checked');
         const selectedValue = selected ? selected.value : '';
@@ -510,30 +554,50 @@
         );
       }
 
-      scoreInputs.forEach(input => input.addEventListener('input', updateScores));
-      recommendationInputs.forEach(input => input.addEventListener('change', updateClosingNotes));
+      scoreInputs.forEach(function (input) {
+        input.addEventListener('input', updateScores);
+      });
 
-      textareas.forEach(function (textarea) {
-        autoFitTextarea(textarea);
-        textarea.addEventListener('input', function () {
-          autoFitTextarea(textarea);
-        });
+      recommendationInputs.forEach(function (input) {
+        input.addEventListener('change', updateClosingNotes);
       });
 
       window.addEventListener('beforeprint', function () {
-        autoFitAllTextareas();
+        syncAllTextareas();
         updateClosingNotes();
       });
 
       printButton.addEventListener('click', function () {
-        autoFitAllTextareas();
+        syncAllTextareas();
         updateClosingNotes();
         window.print();
       });
 
+      clearButton.addEventListener('click', function () {
+        const confirmClear = confirm('Clear the entire form? This cannot be undone.');
+        if (!confirmClear) return;
+
+        document.querySelectorAll('input').forEach(function (input) {
+          if (input.type === 'radio' || input.type === 'checkbox') {
+            input.checked = false;
+          } else {
+            input.value = '';
+          }
+        });
+
+        document.querySelectorAll('textarea').forEach(function (textarea) {
+          textarea.value = '';
+          textarea.dispatchEvent(new Event('input'));
+        });
+
+        updateScores();
+        updateClosingNotes();
+        syncAllTextareas();
+      });
+
       updateScores();
       updateClosingNotes();
-      autoFitAllTextareas();
+      syncAllTextareas();
     });
   </script>
 </body>
