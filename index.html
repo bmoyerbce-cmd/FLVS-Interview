@@ -262,7 +262,7 @@
     .clear-button,
     .email-button,
     .copy-button,
-    .mailto-button {
+    .outlook-button {
       color: #ffffff;
       padding: 10px 18px;
       border-radius: 6px;
@@ -278,14 +278,14 @@
     .print-button,
     .email-button,
     .copy-button,
-    .mailto-button {
+    .outlook-button {
       background-color: #1f4e79;
     }
 
     .print-button:hover,
     .email-button:hover,
     .copy-button:hover,
-    .mailto-button:hover {
+    .outlook-button:hover {
       background-color: #163a5b;
     }
 
@@ -325,6 +325,17 @@
       .action-bar,
       .email-actions {
         display: none !important;
+      }
+
+      #emailSection,
+      .email-section {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
       }
 
       textarea.field-textarea {
@@ -468,7 +479,7 @@
         <th style="width: 60px; text-align: center">No</th>
       </tr>
       <tr>
-        <td>Are you seeking a Full Time or Part Time schedule?</td>
+        <td>Are you seeking a Full Time schedule?</td>
         <td class="checkbox-cell"><input class="inline-check" type="radio" name="req1" aria-label="Schedule yes"></td>
         <td class="checkbox-cell"><input class="inline-check" type="radio" name="req1" aria-label="Schedule no"></td>
       </tr>
@@ -812,11 +823,11 @@
     </div>
   </div>
 
-  <div class="email-section">
+  <div id="emailSection" class="email-section">
     <h2 style="margin-top: 0">6. Email Recommendation Template</h2>
 
     <p class="intro-text">
-      Select whether you recommend or do not recommend the candidate, then generate the email template.
+      Select whether you recommend or do not recommend the candidate, then generate the Outlook email template.
     </p>
 
     <div class="email-options">
@@ -853,7 +864,7 @@
     <div class="email-actions">
       <button id="generateEmailButton" class="email-button" type="button">Generate Email Template</button>
       <button id="copyEmailButton" class="copy-button" type="button">Copy Email Template</button>
-      <a id="mailtoButton" class="mailto-button" href="#" target="_blank" rel="noopener">Open Email Draft</a>
+      <a id="outlookButton" class="outlook-button" href="https://outlook.office.com/mail/deeplink/compose" target="_blank" rel="noopener">Open Outlook Draft</a>
     </div>
 
     <textarea id="emailTemplateOutput" class="field-textarea email-output" aria-label="Generated email template" readonly></textarea>
@@ -872,7 +883,7 @@
       const clearButton = document.querySelector('.clear-button');
       const generateEmailButton = document.getElementById('generateEmailButton');
       const copyEmailButton = document.getElementById('copyEmailButton');
-      const mailtoButton = document.getElementById('mailtoButton');
+      const outlookButton = document.getElementById('outlookButton');
 
       const scoreInputs = Array.from(document.querySelectorAll('.question-score'));
       const textareas = Array.from(document.querySelectorAll('textarea.field-textarea'));
@@ -1145,12 +1156,13 @@
         emailTemplateOutput.value = body;
         emailTemplateOutput.dispatchEvent(new Event('input'));
 
-        const mailtoHref =
-          'mailto:' + encodeURIComponent(emailRecipients.join(';')) +
-          '?subject=' + encodeURIComponent(subject) +
+        const outlookWebUrl =
+          'https://outlook.office.com/mail/deeplink/compose?' +
+          'to=' + encodeURIComponent(emailRecipients.join(';')) +
+          '&subject=' + encodeURIComponent(subject) +
           '&body=' + encodeURIComponent(body);
 
-        mailtoButton.href = mailtoHref;
+        outlookButton.href = outlookWebUrl;
 
         syncAllTextareas();
       }
@@ -1178,8 +1190,6 @@
         document.querySelectorAll('input').forEach(function (input) {
           if (input.type === 'radio' || input.type === 'checkbox') {
             input.checked = false;
-          } else if (input.readOnly) {
-            input.value = '';
           } else {
             input.value = '';
           }
@@ -1192,10 +1202,11 @@
 
         interviewFormSections.style.display = 'block';
         emailTo.value = emailRecipients.join('; ');
-        mailtoButton.href = '#';
+        outlookButton.href = 'https://outlook.office.com/mail/deeplink/compose';
 
         updateScores();
         updateClosingNotes();
+        buildEmailTemplate();
         syncAllTextareas();
       }
 
